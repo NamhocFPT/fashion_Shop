@@ -51,6 +51,7 @@ public class ShopController extends HttpServlet {
                 String CategoryID = request.getParameter("CategoryID");
                 String priceDown = request.getParameter("priceDown");
                 String priceUp = request.getParameter("priceUp");
+                String str = request.getParameter("str");
                 int count = 9;
                 int offset = (pageid - 1) * count;
 
@@ -71,6 +72,12 @@ public class ShopController extends HttpServlet {
                     int totalProducts = daoPro.getTotalProducts(countSql);
                     int totalPages = (int) Math.ceil((double) totalProducts / count);
                     request.setAttribute("totalPages", totalPages);
+//                } else if (str != null) {
+//                    sql = "SELECT * FROM Products WHERE ProductName LIKE '%"+str+"%' ORDER BY ProductID OFFSET " + offset + " ROWS FETCH NEXT " + count + " ROWS ONLY";
+//                    String countSql = "SELECT COUNT(*) FROM Products WHERE ProductName LIKE '%"+str+"%'";
+//                    int totalProducts = daoPro.getTotalProducts(countSql);
+//                    int totalPages = (int) Math.ceil((double) totalProducts / count);
+//                    request.setAttribute("totalPages", totalPages);
                 } else {
                     sql = "SELECT * FROM Products ORDER BY ProductID OFFSET " + offset + " ROWS FETCH NEXT " + count + " ROWS ONLY";
                     String countSql = "SELECT COUNT(*) FROM Products";
@@ -85,6 +92,12 @@ public class ShopController extends HttpServlet {
                 request.setAttribute("CategoryID", CategoryID);
             }
 
+//            if (service.equals("search")) {
+//                String str = request.getParameter("str");
+//                response.sendRedirect("ShopController?service=pagination&pageid=1&str="+str);
+//                return;
+//            }
+            
             RequestDispatcher rd = request.getRequestDispatcher("Shop.jsp");
             rd.forward(request, response);
         }

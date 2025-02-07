@@ -227,29 +227,6 @@
                                     <ul class="checkout__total__all">
                                         <li>Total <span>$<%=cart.getTotalAmount()%></span></li>
                                     </ul>
-                                    <h4>Payment method:</h4>
-                                    <br/>
-                                    <div class="checkout__input__checkbox">
-                                        <label for="payment">
-                                            Banking
-                                            <input type="radio" name="payment_method" id="payment" value="banking">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="checkout__input__checkbox">
-                                        <label for="paypal_option">
-                                            Paypal
-                                            <input type="radio" name="payment_method" id="paypal_option" value="paypal">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="checkout__input__checkbox">
-                                        <label for="cash_on_delivery">
-                                            Cash on Delivery
-                                            <input type="radio" name="payment_method" id="cash_on_delivery" value="cash">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
 
                                     <button type="submit" class="site-btn">PLACE ORDER</button>
                                 </div>

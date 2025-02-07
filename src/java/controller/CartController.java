@@ -66,11 +66,19 @@ public class CartController extends HttpServlet {
             if (service.equals("deleteCartItem")) {
                 int CartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
 //                cart = (Cart) session.getAttribute("cart");
-                cart.deleteCartItem(CartItemPos);
+                cart.updateCart(CartItemPos, cart.getItemsList().get(CartItemPos).getQuantity()-2);
+                response.sendRedirect("Shopping-cart.jsp");
+            }
+            
+            if (service.equals("UpdateCart")) {
+                for (int i = 0; i < cart.getItemsList().size(); i++) {
+                    int newQuantity = Integer.parseInt(request.getParameter("updateQuantity_" + i));
+                    cart.updateCart(i, newQuantity);
+                }
                 response.sendRedirect("Shopping-cart.jsp");
             }
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

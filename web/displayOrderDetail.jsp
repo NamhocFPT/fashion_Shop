@@ -1,12 +1,12 @@
 <%-- 
-    Document   : DisplayOrders
-    Created on : Oct 23, 2024, 11:03:54 AM
+    Document   : displayOrderDetail
+    Created on : Nov 7, 2024, 2:36:54 AM
     Author     : HP
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
-<%@page import="entity.Orders"%>
+<%@page import="entity.OrderDetail"%>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -34,14 +34,48 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     
     <style>
-        .show-orders {
-            margin-bottom: 20px;
-            width: 100%;
+        html,
+        body,
+        .intro {
+          height: 100%;
+        }
+
+        .gradient-custom-1 {
+          /* fallback for old browsers */
+          background: #D3D3D3
+
+          /* Chrome 10-25, Safari 5.1-6 */
+/*          background: -webkit-linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+           W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
+          background: linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))*/
+        }
+
+        table td,
+        table th {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        tbody td {
+          font-weight: 500;
+          color: #999999;
         }
         
-        .text_hover:hover {
-            text-decoration: underline;
+        .row1 {
+            margin-top: 50px;
         }
+        
+        .underline_text:hover, .underline_text:focus {
+            text-decoration: underline;
+            outline: none;
+            color: red;
+        }
+        
+        a:hover {
+            color: red !important;
+        }
+
     </style>
 </head>
 
@@ -161,7 +195,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h4>Check orders</h4>
+                        <h4>Chi tiết đơn hàng: </h4>
                     </div>
                 </div>
             </div>
@@ -169,102 +203,56 @@
     </section>
     <!-- Breadcrumb Section End -->
     <%
-        Vector<Orders> orderList = (Vector<Orders>) request.getAttribute("orderList");
+        Vector<OrderDetail> OrderDetailList = (Vector<OrderDetail>) request.getAttribute("OrderDetailList");
     %>
     <!-- Shopping Cart Section Begin -->
-    <form action="OrderController">
-        <input type="hidden" name="service" value="filterStatus">
-        <select name="option">
-            <option name="opt" value="Đã phê duyệt">Đã phê duyệt</option>
-            <option name="opt" value="Chờ phê duyệt">Chờ phê duyệt</option>
-        </select>
-        <input type="submit" value="Filter">
-    </form>
-    <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div>
-                    <div class="show-orders">
-                        <table class="show-orders" border="3">
-                            <thead>
-                                <tr>
-                                    <th>OrderID</th>
-                                    <th>UserID</th>
-                                    <th>OrderDate</th>
-                                    <th>TotalAmount</th>
-                                    <th>FirstName</th>
-                                    <th>LastName</th>
-                                    <th>Country</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>OrderNotes</th>
-                                    <th>Order details</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (int i = 0; i < orderList.size(); i++) {%>
-                                <tr>
-                                    <td>
-                                        <%=orderList.get(i).getOrderID()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getUserID()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getOrderDate()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getTotalAmount()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getFirstName()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getLastName()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getCountry()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getAddress()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getPhone()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getEmail()%>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getOrderNotes()%>
-                                    </td>
-                                    <td>
-                                        <a href="OrderDetailController?service=showOrderDetail&oid=<%=orderList.get(i).getOrderID()%>">Order detail</a>
-                                    </td>
-                                    <td>
-                                        <%=orderList.get(i).getStatus()%>
-                                    </td>
-                                    <td>
-                                        <a href="OrderController?service=checkOrders&OrderID=<%=orderList.get(i).getOrderID()%>" class="text_hover">Phê Duyệt</a>
-                                    </td>
-                                </tr>
-                                <%}%>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
+    <section class="intro">
+        <div class="gradient-custom-1 h-100">
+          <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <div class="table-responsive bg-white">
+                    <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">OrderDetailID</th>
+                          <th scope="col">OrderID</th>
+                          <th scope="col">ProductID</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">UnitPrice</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for (int i = 0; i < OrderDetailList.size(); i++) {%>
+                        <tr>
+                          <th scope="row" style="color: #666666;"><%=OrderDetailList.get(i).getOrderDetailID()%></th>
+                          <td><%=OrderDetailList.get(i).getOrderID()%></td>
+                          <td><%=OrderDetailList.get(i).getProductID()%></td>
+                          <td><%=OrderDetailList.get(i).getQuantity()%></td>
+                          <td><%=OrderDetailList.get(i).getUnitPrice()%></td>
+                          <td><a class="underline_text" href="" class="text_hover">Update</a></td>
+                          <td><a class="underline_text" href="" class="text_hover">Delete</a></td>
+                        </tr>
+                        <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+                    <div class="row row1">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
                                 <a href="HomePageEmp.jsp">Back to Home</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </div>     
+          </div>
+        </div>         
+      </section>                       
     <!-- Shopping Cart Section End -->
 
     <!-- Footer Section Begin -->

@@ -171,8 +171,9 @@
                     <div class="col-lg-3">
                         <div class="shop__sidebar">
                             <div class="shop__sidebar__search">
-                                <form action="#">
-                                    <input type="text" placeholder="Search...">
+                                <form action="ShopController">
+                                    <input type="hidden" name="service" value="search">
+                                    <input type="text" placeholder="Search..." name="str">
                                     <button type="submit"><span class="icon_search"></span></button>
                                 </form>
                             </div>
@@ -225,16 +226,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__right">
-                                        <p>Sort by Price:</p>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">$0 - $55</option>
-                                            <option value="">$55 - $100</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">

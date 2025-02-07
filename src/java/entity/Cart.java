@@ -76,4 +76,8 @@ public class Cart {
             this.deleteCartItem(i);
         }
     }
+    
+    public void updateCart(int pos, int quantity) {
+        this.getItemsList().get(pos).setQuantity(quantity);
+    }
 }

@@ -11,12 +11,14 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Vector;
+
 /**
  *
  * @author HP
  */
-public class DAOOrders extends DBConnection{
-    public int addOrders(Orders od ) {
+public class DAOOrders extends DBConnection {
+
+    public int addOrders(Orders od) {
         int n = 0;
         String sql = """
                      INSERT INTO [dbo].[Orders]
@@ -63,7 +65,7 @@ public class DAOOrders extends DBConnection{
         }
         return n;
     }
-    
+
     public Vector<Orders> getOrders(String sql) {
         Vector<Orders> ordersList = new Vector<Orders>();
         try {
@@ -82,8 +84,7 @@ public class DAOOrders extends DBConnection{
                 String Phone = rs.getString(10);
                 String Email = rs.getString(11);
                 String OrderNotes = rs.getString(12);
-                
-                
+
                 ordersList.add(new Orders(OrderID, UserID, OrderDate, TotalAmount, Status, FirstName, LastName, Country, Address, Phone, Email, OrderNotes));
             }
         } catch (SQLException ex) {
@@ -92,7 +93,7 @@ public class DAOOrders extends DBConnection{
 
         return ordersList;
     }
-    
+
     public int updateOrderStatus(Orders od) {
         int n = 0;
         String sql = """
@@ -109,7 +110,7 @@ public class DAOOrders extends DBConnection{
         }
         return n;
     }
-    
+
     public Orders getOrderById(int OrderID) {
         Orders od = null;
         String sql = "SELECT * FROM [dbo].[Orders] WHERE OrderID = " + OrderID;
@@ -136,12 +137,27 @@ public class DAOOrders extends DBConnection{
         }
         return od;
     }
-    
+
+    public int getOrderIdNew() {
+        String sql = "Select top(1) OrderID from [dbo].[Orders]\n"
+                + "order by OrderID desc";
+        PreparedStatement pre;
+        int n = 0;
+        try {
+            pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                n = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+
     public static void main(String[] args) {
         DAOOrders dao = new DAOOrders();
-        Vector<Orders> vector = dao.getOrders("SELECT * FROM [dbo].[Orders]");
-        for (int i = 0; i < vector.size(); i++) {
-            System.out.println(vector.get(i).getOrderID());
-        }
+        int n = dao.getOrderIdNew();
+        System.out.println(n);
     }
 }

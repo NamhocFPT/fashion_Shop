@@ -5,8 +5,7 @@
 
 package controller;
 
-import entity.Users;
-import jakarta.servlet.RequestDispatcher;
+import entity.OrderDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.DAOUsers;
+import java.util.Vector;
+import model.DAOOrderDetail;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="RegisterController", urlPatterns={"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name="OrderDetailController", urlPatterns={"/OrderDetailController"})
+public class OrderDetailController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,16 +34,16 @@ public class RegisterController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            DAOUsers dao = new DAOUsers();
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            Users user = new Users(username, password, 3);
-            int n = dao.addUser(user);
-            RequestDispatcher rd = request.getRequestDispatcher("RegisterSuccess.jsp");
-//            request.setAttribute("username", username);
-//            request.setAttribute("password", password);
-//            request.setAttribute("n", n);
-            rd.forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            DAOOrderDetail daoOd = new DAOOrderDetail();
+            String service = request.getParameter("service");
+            if (service.equals("showOrderDetail")) {
+                int oid = Integer.parseInt(request.getParameter("oid"));
+                String sql = "select * from Order_Details where OrderID = "+ oid;
+                Vector<OrderDetail> OrderDetailList = daoOd.getOrderDetail(sql);
+                request.setAttribute("OrderDetailList", OrderDetailList);
+                request.getRequestDispatcher("displayOrderDetail.jsp").forward(request, response);
+            }
         }
     } 
 

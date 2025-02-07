@@ -36,7 +36,113 @@
                 height: 100px; /* Thiết lập chiều cao */
                 object-fit: cover; /* Cắt bớt ảnh nếu cần, giữ tỉ lệ */
             }
+            
+            .row .container {
+                width: auto;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .quantity input {
+                width: 80px;
+                text-align: center;
+                font-size: 16px;
+                padding: 5px;
+                border: 1px solid #ddd;
+            }
+            
+            .continue__btn input {
+                color: #111111;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                border: 1px solid #e1e1e1;
+                padding: 14px 35px;
+                display: inline-block;
+                background: white;
+                height: 72px;
+            }
+            
+            /* Ensure the container for columns is flex */
+            .d-flex {
+                display: flex;
+            }
 
+            .shopping-cart .container {
+                gap: 20px;
+            }
+
+            .col-lg-8 {
+                flex: 2;
+            }
+
+            .col-lg-4 {
+                flex: 1;
+            }
+
+            /* Ensure table and other elements in the cart form take full width */
+            .shopping__cart__table table {
+                width: 100%;
+            }
+
+            /* Button Styling */
+            .continue__btn a,
+            .continue__btn input[type="submit"] {
+                display: block;
+                width: 100%;  /* Full width for both buttons */
+                max-width: 180px; /* Optional: Set max width to control button size */
+                padding: 12px;
+                background-color: #333;
+                color: white;
+                text-align: center;
+                font-size: 16px;
+                border-radius: 5px;
+                text-decoration: none;
+                border: none;
+            }
+
+            .continue__btn a:hover,
+            .continue__btn input[type="submit"]:hover {
+                background-color: #555;
+            }
+
+            /* Cart Total Styling */
+            .cart__total {
+                background-color: #f7f7f7;
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            .cart__total ul {
+                padding: 0;
+                list-style-type: none;
+            }
+
+            .cart__total ul li {
+                font-size: 18px;
+                font-weight: 500;
+                margin: 10px 0;
+            }
+
+            .cart__total a.primary-btn {
+                display: block;
+                padding: 12px;
+                background-color: #333;
+                color: white;
+                text-align: center;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-top: 20px;
+                text-decoration: none;
+            }
+
+            .cart__total a.primary-btn:hover {
+                background-color: #555;
+            }
+            
+            .col-lg-8 {
+                min-width: 100%;
+            }
         </style>
     </head>
 
@@ -122,7 +228,7 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="./HomePage.jsp">Home</a></li>
-                                <li class="active"><a href="./ShopController">Shop</a></li>
+                                <li class="active"><a href="ShopController?service=pagination&pageid=1">Shop</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./About.jsp">About Us</a></li>
@@ -176,51 +282,62 @@
         <section class="shopping-cart spad">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="shopping__cart__table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%for (int i = 0; i < cart.getItemsList().size(); i++) {%>
-                                    <tr>
-                                        <td class="product__cart__item">
-                                            <div class="product__cart__item__pic">
-                                                <img src="<%=cart.getItemsList().get(i).getProduct().getImageURL()%>" alt="">
-                                            </div>
-                                            <div class="product__cart__item__text">
-                                                <h6><%=cart.getItemsList().get(i).getProduct().getProductName()%></h6>
-                                                <h5>$<%=cart.getItemsList().get(i).getProduct().getPrice()%></h5>
-                                            </div>
-                                        </td>
-                                        <td class="quantity__item">
-                                            <div class="quantity">
-                                                <h6><%=cart.getItemsList().get(i).getQuantity()%></h6>
-                                            </div>
-                                        </td>
-                                        <td class="cart__price">$<%=Math.round(cart.getItemsList().get(i).getQuantity() * cart.getItemsList().get(i).getProduct().getPrice() * 100.0) / 100.0%></td>
-                                        <td class="cart__close">
-                                            <a href="CartController?service=deleteCartItem&CartItemPos=<%=i%>"><i class="fa fa-close"></i></a>
-                                        </td>
-                                    </tr>
-                                    <%}%>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="continue__btn">
-                                    <a href="ShopController?service=pagination&pageid=1">Continue Shopping</a>
+                    <form action="CartController">
+                        <input type="hidden" name="service" value="UpdateCart">
+                        <div class="col-lg-8">
+                            <div class="shopping__cart__table">
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%for (int i = 0; i < cart.getItemsList().size(); i++) {%>
+                                        <tr>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="<%=cart.getItemsList().get(i).getProduct().getImageURL()%>" alt="">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h6><%=cart.getItemsList().get(i).getProduct().getProductName()%></h6>
+                                                    <h5>$<%=cart.getItemsList().get(i).getProduct().getPrice()%></h5>
+                                                </div>
+                                            </td>
+                                            <td class="quantity__item">
+                                                <div class="quantity">
+                                                    <input type="text" value="<%=cart.getItemsList().get(i).getQuantity()%>" name="updateQuantity_<%=i%>">
+                                                </div>
+                                            </td>
+                                            <td class="cart__price">$<%=Math.round(cart.getItemsList().get(i).getQuantity() * cart.getItemsList().get(i).getProduct().getPrice() * 100.0) / 100.0%></td>
+                                            <td class="cart__close">
+                                                <a href="CartController?service=deleteCartItem&CartItemPos=<%=i%>"><i class="fa fa-close"></i></a>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn">
+                                        <a href="ShopController?service=pagination&pageid=1">Continue Shopping</a>
+                                    </div>
                                 </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn" align="right">
+                                        <input type="submit" value="Update Cart" name="submit">
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="col-lg-4">
                         <%
                             double totalPrice = 0;
