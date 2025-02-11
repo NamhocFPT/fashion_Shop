@@ -41,7 +41,6 @@ public class CartController extends HttpServlet {
                 if (username == null) {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
-                System.out.println("hqkwoewqkeo");
                 int ProductID = Integer.parseInt(request.getParameter("pid"));
                 System.out.println(ProductID);
                 //if (cart.getCartItemByProductID(ProductID) == null) {
