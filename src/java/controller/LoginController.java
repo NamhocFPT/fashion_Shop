@@ -81,7 +81,7 @@ public class LoginController extends HttpServlet {
                 }
             }
 
-            if (checkLogin == false) {
+            if (!checkLogin) {
                 RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
                 request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu sai");
                 rd.forward(request, response);

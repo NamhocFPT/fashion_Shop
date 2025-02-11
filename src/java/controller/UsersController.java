@@ -82,7 +82,7 @@ public class UsersController extends HttpServlet {
                     String Username = request.getParameter("Username");
                     String Password = request.getParameter("Password");
                     int RoleId = Integer.parseInt(request.getParameter("RoleId"));
-                    int n = daoUs.addUser(new Users(Username, Password, RoleId));
+                    daoUs.addUser(new Users(Username, Password, RoleId));
                     response.sendRedirect("UsersController?service=displayUsers");
                 }
             }

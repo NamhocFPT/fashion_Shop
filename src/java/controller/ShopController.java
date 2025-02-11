@@ -51,7 +51,7 @@ public class ShopController extends HttpServlet {
                 String CategoryID = request.getParameter("CategoryID");
                 String priceDown = request.getParameter("priceDown");
                 String priceUp = request.getParameter("priceUp");
-                String str = request.getParameter("str");
+                
                 int count = 9;
                 int offset = (pageid - 1) * count;
 

@@ -116,16 +116,7 @@
                         <ul>
                             <li class="active"><a href="HomePage.jsp">Home</a></li>
                             <li><a href="OrderController?service=displayOrders">Check Orders</a></li>
-<!--                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./About.jsp">About Us</a></li>
-                                    <li><a href="./Shopping-cart.jsp">Shopping Cart</a></li>
-                                    <li><a href="./Checkout.jsp">Check Out</a></li>
-                                    <li><a href="./Blog-details.jsp">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./Blog.jsp">Blog</a></li>
-                            <li><a href="./Contact.jsp">Contacts</a></li>-->
+
                         </ul>
                     </nav>
                 </div>
