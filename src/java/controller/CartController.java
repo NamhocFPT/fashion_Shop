@@ -31,6 +31,7 @@ public class CartController extends HttpServlet {
             DAOProducts daoPro = new DAOProducts();
             HttpSession session = request.getSession();
             int cartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
+            int productID = Integer.parseInt(request.getParameter("pid"));
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new Cart();
@@ -41,20 +42,8 @@ public class CartController extends HttpServlet {
                 if (username == null) {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
-                int ProductID = Integer.parseInt(request.getParameter("pid"));
+                
 
-                CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
-                cart.addItemToCart(ci);
-                response.sendRedirect("ShopController?service=pagination&pageid=1");
-            }
-            session.setAttribute("cart", cart);
-            if (service.equals("showShoppingCart")) {
-                response.sendRedirect("Shopping-cart.jsp");
-            }
-
-            if (service.equals("deleteCartItem")) {
-
-                int productID = Integer.parseInt(request.getParameter("pid"));
                 CartItem ci = new CartItem(daoPro.getProductById(productID), 1);
                 cart.addItemToCart(ci);
                 response.sendRedirect("ShopController?service=pagination&pageid=1");
@@ -65,8 +54,18 @@ public class CartController extends HttpServlet {
             }
 
             if (service.equals("deleteCartItem")) {
+                CartItem ci = new CartItem(daoPro.getProductById(productID), 1);
+                cart.addItemToCart(ci);
+                response.sendRedirect("ShopController?service=pagination&pageid=1");
+            }
+            session.setAttribute("cart", cart);
+            if (service.equals("showShoppingCart")) {
+                response.sendRedirect("CartController");
+            }
+
+            if (service.equals("deleteCartItem")) {
                 cart.updateCart(cartItemPos, cart.getItemsList().get(cartItemPos).getQuantity() - 2);
-                response.sendRedirect("Shopping-cart.jsp");
+                response.sendRedirect("CartController");
             }
 
             if (service.equals("UpdateCart")) {
