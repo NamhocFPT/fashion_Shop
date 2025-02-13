@@ -36,7 +36,6 @@ public class OrderController extends HttpServlet {
         DAOOrderDetail daoOd = new DAOOrderDetail();
         HttpSession session = request.getSession();
         int userID = (int) session.getAttribute("userID");
-        System.out.println(userID);
         Cart cart = (Cart) session.getAttribute("cart");
 
         try (PrintWriter out = response.getWriter()) {

@@ -28,7 +28,6 @@ public class ShopController extends HttpServlet {
             DAOCategories daoCate = new DAOCategories();
             DAOProducts daoPro = new DAOProducts();
             
-            // Lấy danh sách categories
             Vector<Categories> listCategories = daoCate.getCategories("SELECT * FROM [dbo].[Categories]");
             request.setAttribute("listCategories", listCategories);
 
@@ -43,12 +42,10 @@ public class ShopController extends HttpServlet {
                 String sql = buildSQLQuery(categoryID, priceDown, priceUp, offset, count);
                 String countSql = buildCountSQL(categoryID, priceDown, priceUp);
 
-                // Lấy tổng số sản phẩm và số trang
                 int totalProducts = daoPro.getTotalProducts(countSql);
                 int totalPages = (int) Math.ceil((double) totalProducts / count);
                 request.setAttribute("totalPages", totalPages);
 
-                // Lấy danh sách sản phẩm
                 Vector<Products> listProducts = daoPro.getProducts(sql);
                 request.setAttribute("listProducts", listProducts);
                 request.setAttribute("numberpage", pageid);

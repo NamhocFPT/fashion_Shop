@@ -40,9 +40,6 @@ public class RegisterController extends HttpServlet {
             Users user = new Users(username, password, 3);
             int n = dao.addUser(user);
             RequestDispatcher rd = request.getRequestDispatcher("RegisterSuccess.jsp");
-//            request.setAttribute("username", username);
-//            request.setAttribute("password", password);
-//            request.setAttribute("n", n);
             rd.forward(request, response);
         }
     } 

@@ -88,7 +88,6 @@ public class ProductController extends HttpServlet {
             if (service.equals("updateProducts")) {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
-                    //System.out.println("Hello ");
                     String ProductID = request.getParameter("pid");
                     RequestDispatcher rd = request.getRequestDispatcher("UpdateProducts.jsp");
                     Products pro = daoPro.getProductById(Integer.parseInt(ProductID));
@@ -96,7 +95,6 @@ public class ProductController extends HttpServlet {
                     rd.forward(request, response);
                     
                 } else {
-                    //System.out.println("Hello world");
                     int ProductID = Integer.parseInt(request.getParameter("ProductID"));
                     String ProductName = request.getParameter("ProductName");
                     double Price = Double.parseDouble(request.getParameter("Price"));
@@ -104,7 +102,6 @@ public class ProductController extends HttpServlet {
                     int CategoryID = Integer.parseInt(request.getParameter("CategoryID"));
                     String Description = request.getParameter("Description");
                     String ImageURL = request.getParameter("ImageURL");
-                    //System.out.println(UserId + " " + Username + " " + Password + " " + RoleId);
                     int n = daoPro.updateProduct(new Products(ProductID, ProductName, Price, Stock, CategoryID, Description, ImageURL));
                     response.sendRedirect("ProductController?service=pagination&pageid=1");
                 }

@@ -50,7 +50,6 @@ public class UsersController extends HttpServlet {
             if (service.equals("updateUser")) {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
-                    //System.out.println("Hello ");
                     String UserID = request.getParameter("UserID");
                     RequestDispatcher rd = request.getRequestDispatcher("UpdateUsers.jsp");
                     Users u = daoUs.getUserByUserId(Integer.parseInt(UserID));
@@ -58,12 +57,10 @@ public class UsersController extends HttpServlet {
                     rd.forward(request, response);
                     
                 } else {
-                    //System.out.println("Hello world");
                     int UserId = Integer.parseInt(request.getParameter("UserId"));
                     String Username = request.getParameter("Username");
                     String Password = request.getParameter("Password");
                     int RoleId = Integer.parseInt(request.getParameter("RoleId"));
-                    //System.out.println(UserId + " " + Username + " " + Password + " " + RoleId);
                     int n = daoUs.updateUser(new Users(UserId, Username, Password, RoleId));
                     response.sendRedirect("UsersController?service=displayUsers");
                 }
