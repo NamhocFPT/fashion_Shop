@@ -42,29 +42,30 @@ public class CartController extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
                 int ProductID = Integer.parseInt(request.getParameter("pid"));
-                System.out.println(ProductID);
-                //if (cart.getCartItemByProductID(ProductID) == null) {
+
                     CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
-//                    System.out.println("Product added: " + ci.getProduct().getProductID()+ " " + ci.getProduct().getProductName() + " " + ci.getQuantity());
-//                    System.out.println(cart.getNumberCartItem());
-                //}
                 cart.addItemToCart(ci);
                 response.sendRedirect("ShopController?service=pagination&pageid=1");
             }
             session.setAttribute("cart", cart);
-//            System.out.println(cart.getNumberCartItem());
-//            for (int i = 0; i < cart.getNumberCartItem(); i++) {
-//                System.out.println(cart.getItemsList().get(i).getProduct().getProductName() + " " + cart.getItemsList().get(i).getQuantity());
-//            }
-            
             if (service.equals("showShoppingCart")) {
-//                cart = (Cart) session.getAttribute("cart");
                 response.sendRedirect("Shopping-cart.jsp");
             }
             
             if (service.equals("deleteCartItem")) {
                 int CartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
-//                cart = (Cart) session.getAttribute("cart");
+                int ProductID = Integer.parseInt(request.getParameter("pid"));
+                    CartItem ci = new CartItem(daoPro.getProductById(ProductID), 1);
+                cart.addItemToCart(ci);
+                response.sendRedirect("ShopController?service=pagination&pageid=1");
+            }
+            session.setAttribute("cart", cart);
+            if (service.equals("showShoppingCart")) {
+                response.sendRedirect("Shopping-cart.jsp");
+            }
+            
+            if (service.equals("deleteCartItem")) {
+                int CartItemPos = Integer.parseInt(request.getParameter("CartItemPos"));
                 cart.updateCart(CartItemPos, cart.getItemsList().get(CartItemPos).getQuantity()-2);
                 response.sendRedirect("Shopping-cart.jsp");
             }
