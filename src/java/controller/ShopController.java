@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.Vector;
 import model.DAOCategories;
 import model.DAOProducts;
+import java.util.ArrayList;
 
 @WebServlet(name = "ShopController", urlPatterns = {"/ShopController"})
 public class ShopController extends HttpServlet {
@@ -52,13 +53,10 @@ public class ShopController extends HttpServlet {
                 request.setAttribute("CategoryID", categoryID);
             }
             
-            // Chuyển đến trang Shop.jsp để hiển thị
             RequestDispatcher rd = request.getRequestDispatcher("Shop.jsp");
             rd.forward(request, response);
         }
     }
-
-    // Phương thức xây dựng câu truy vấn SQL cho sản phẩm
     private String buildSQLQuery(String categoryID, String priceDown, String priceUp, int offset, int count) {
         String sql;
         if (categoryID != null) {
@@ -72,8 +70,6 @@ public class ShopController extends HttpServlet {
         }
         return sql;
     }
-
-    // Phương thức xây dựng câu truy vấn SQL đếm số lượng sản phẩm
     private String buildCountSQL(String categoryID, String priceDown, String priceUp) {
         String countSql;
         if (categoryID != null) {
