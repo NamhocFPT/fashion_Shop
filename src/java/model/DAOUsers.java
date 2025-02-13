@@ -12,6 +12,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,8 +43,8 @@ public class DAOUsers extends DBConnection {
         return n;
     }
     
-    public Vector<Users> getUsers(String sql) {
-        Vector<Users> vector = new Vector<Users>();
+    public ArrayList<Users> getUsers(String sql) {
+        ArrayList<Users> vector = new ArrayList<>();
         Statement state;
         try {
             state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,

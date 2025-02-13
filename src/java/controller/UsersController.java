@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Vector;
 import model.DAOUsers;
 
@@ -40,7 +41,7 @@ public class UsersController extends HttpServlet {
             DAOUsers daoUs = new DAOUsers();
             if (service.equals("displayUsers")) {
                 String sql = "SELECT * FROM Users";
-                Vector<Users> userList = daoUs.getUsers(sql);
+                ArrayList<Users> userList = daoUs.getUsers(sql);
                 RequestDispatcher rd = request.getRequestDispatcher("DisplayUsers.jsp");
                 request.setAttribute("userList", userList);
                 rd.forward(request, response);

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 import model.DAOUsers;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("password");
             String sql = "SELECT * FROM [dbo].[Users]";
             DAOUsers dao = new DAOUsers();
-            Vector<Users> vector = dao.getUsers(sql);
+            ArrayList<Users> vector = dao.getUsers(sql);
             boolean checkLogin = false;
 
             for (Users u : vector) {
