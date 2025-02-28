@@ -68,7 +68,7 @@ public class OrderController extends HttpServlet {
 
             if (service.equals("displayOrders")) {
                 String sql = "SELECT * FROM [dbo].[Orders]";
-                Vector<Orders> orderList = daoOr.getOrders(sql);
+                Vector<Orders> orderList = daoOr.getOrders(sql); 
                 RequestDispatcher rd = request.getRequestDispatcher("DisplayOrders.jsp");
                 request.setAttribute("orderList", orderList);
                 rd.forward(request, response);
