@@ -42,20 +42,20 @@ public class OrderController extends HttpServlet {
             String service = request.getParameter("service");
 
             if (service.equals("checkout")) {
-                String FirstName = request.getParameter("firstName");
-                String LastName = request.getParameter("lastName");
-                String Country = request.getParameter("country");
-                String Address = request.getParameter("address");
-                String Phone = request.getParameter("phone");
-                String Email = request.getParameter("email");
-                String OrderNotes = request.getParameter("orderNotes");
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                String country = request.getParameter("country");
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("email");
+                String orderNotes = request.getParameter("orderNotes");
 
                 LocalDateTime currentTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String OrderDate = currentTime.format(formatter);
                 double TotalAmount = cart.getTotalAmount();
                 String status = "Chờ phê duyệt";
-                Orders o = new Orders(userID, OrderDate, TotalAmount, status, FirstName, LastName, Country, Address, Phone, Email, OrderNotes);
+                Orders o = new Orders(userID, OrderDate, TotalAmount, status, firstName, lastName, country, address, phone, email, orderNotes);
                 int n = daoOr.addOrders(o);
                 int OrderID = daoOr.getOrderIdNew();
                 for (int i = 0; i < cart.getItemsList().size(); i++) {
