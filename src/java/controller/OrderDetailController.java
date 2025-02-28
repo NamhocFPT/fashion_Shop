@@ -40,8 +40,8 @@ public class OrderDetailController extends HttpServlet {
             if (service.equals("showOrderDetail")) {
                 int oid = Integer.parseInt(request.getParameter("oid"));
                 String sql = "select * from Order_Details where OrderID = "+ oid;
-                Vector<OrderDetail> OrderDetailList = daoOd.getOrderDetail(sql);
-                request.setAttribute("OrderDetailList", OrderDetailList);
+                Vector<OrderDetail> orderDetailList = daoOd.getOrderDetail(sql);
+                request.setAttribute("OrderDetailList", orderDetailList);
                 request.getRequestDispatcher("displayOrderDetail.jsp").forward(request, response);
             }
         }
