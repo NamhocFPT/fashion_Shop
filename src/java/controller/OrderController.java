@@ -56,7 +56,7 @@ public class OrderController extends HttpServlet {
                 double TotalAmount = cart.getTotalAmount();
                 String status = "Chờ phê duyệt";
                 Orders o = new Orders(userID, OrderDate, TotalAmount, status, firstName, lastName, country, address, phone, email, orderNotes);
-                int n = daoOr.addOrders(o);
+                daoOr.addOrders(o);
                 int OrderID = daoOr.getOrderIdNew();
                 for (int i = 0; i < cart.getItemsList().size(); i++) {
                     OrderDetail od = new OrderDetail(OrderID, cart.getItemsList().get(i).getProduct().getProductID(), cart.getItemsList().get(i).getQuantity(), cart.getItemsList().get(i).getProduct().getPrice());
