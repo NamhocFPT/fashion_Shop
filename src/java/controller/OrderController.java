@@ -52,10 +52,10 @@ public class OrderController extends HttpServlet {
 
                 LocalDateTime currentTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String OrderDate = currentTime.format(formatter);
-                double TotalAmount = cart.getTotalAmount();
+                String orderDate = currentTime.format(formatter);
+                double totalAmount = cart.getTotalAmount();
                 String status = "Chờ phê duyệt";
-                Orders o = new Orders(userID, OrderDate, TotalAmount, status, firstName, lastName, country, address, phone, email, orderNotes);
+                Orders o = new Orders(userID, orderDate, totalAmount, status, firstName, lastName, country, address, phone, email, orderNotes);
                 daoOr.addOrders(o);
                 int OrderID = daoOr.getOrderIdNew();
                 for (int i = 0; i < cart.getItemsList().size(); i++) {
