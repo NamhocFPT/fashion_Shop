@@ -75,8 +75,8 @@ public class OrderController extends HttpServlet {
             }
 
             if (service.equals("checkOrders")) {
-                String OrderID = request.getParameter("OrderID");
-                Orders od = daoOr.getOrderById(Integer.parseInt(OrderID));
+                String orderID = request.getParameter("OrderID");
+                Orders od = daoOr.getOrderById(Integer.parseInt(orderID));
                 daoOr.updateOrderStatus(od);
                 response.sendRedirect("OrderController?service=displayOrders");
             }
